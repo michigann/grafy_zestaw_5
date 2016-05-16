@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+'''
+Instalacja biblioteki PyGraphviz:
+sudo apt-get install -y python-pygraphviz
+'''
 
 from Graph import Graph
 import sys

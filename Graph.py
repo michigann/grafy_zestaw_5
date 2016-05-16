@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import networkx as nx
+import pygraphviz as nx
 import matplotlib.pyplot as plt
 
 from random import randint
@@ -85,18 +85,13 @@ class Graph:
 	#rysowanie grafu - do poprawki, dodanie krawędzi skierowanych
 	#zmiana rysowania sposobu grafu? jest nieczytelny
 	def draw(self):
-		g = nx.Graph()
+		g = nx.AGraph(strict=False, directed=True)
 		for i in range(self.vertices):
-			for j in range(i, self.vertices):
+			for j in range(self.vertices):
 				if self.matrix[i][j] != 0:
-					g.add_edge(i, j, w=self.matrix[i][j])
-				
-		pos = nx.shell_layout(g)
-		nx.draw_networkx_nodes(g, pos, node_size=300)
-		nx.draw_networkx_edges(g, pos)
-		nx.draw_networkx_labels(g, pos)
-		nx.draw_networkx_edge_labels(g, pos)
+					c = 'black' if i<j else 'red'	
+					g.add_edge(i, j, self.matrix[i][j], color=c)
+			
+		#prog=[‘neato’|’dot’|’twopi’|’circo’|’fdp’|’nop’]			
+		g.draw('Graph.png',prog='dot')
 
-		plt.axis('off')
-		plt.savefig("Graph.png")
-		plt.close()
