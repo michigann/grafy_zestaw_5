@@ -82,8 +82,7 @@ class Graph:
 		return matrix
 		
 		
-	#rysowanie grafu - do poprawki, dodanie krawędzi skierowanych
-	#zmiana rysowania sposobu grafu? jest nieczytelny
+	#rysowanie grafu - do poprawki, dodanie wag krawędzi
 	def draw(self):
 		g = nx.AGraph(strict=False, directed=True)
 		for i in range(self.vertices):
