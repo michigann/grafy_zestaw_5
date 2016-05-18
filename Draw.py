@@ -74,6 +74,7 @@ def draw(g):
     for i in range(vertices):
         for j in range(i+1, vertices):
             if matrix[i][j] != 0 or matrix[j][i] != 0:
+            	x, y = i, j
                 color = green
                 k, l = index_2d(layers, i), index_2d(layers, j)
                 k, l = coords[k[0]][k[1]], coords[l[0]][l[1]]
@@ -83,14 +84,15 @@ def draw(g):
                     draw_flow(screen, font.render(str(matrix[i][j]) + "/0", True, black), k, l)
                     k, l = (k[0] - radius, k[1] - radius), (l[0] - radius, l[1] - radius)
                     draw_line(screen, red, l, k)
-                    draw_flow(screen, font.render(str(matrix[i][j]) + "/0", True, black), k, l, False)
+                    draw_flow(screen, font.render(str(matrix[j][i]) + "/0", True, black), k, l, False)
                     continue
                 elif matrix[j][i] != 0:
-                    k, l = l, k
-                    color = red
+                	x, y = y, x
+                	k, l = l, k
+                	color = red
 
                 draw_line(screen, color, k, l)
-                draw_flow(screen, font.render(str(matrix[i][j])+"/0", True, black), k, l)
+                draw_flow(screen, font.render(str(matrix[x][y])+"/0", True, black), k, l)
 
 
     for i in coords:
