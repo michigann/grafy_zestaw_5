@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Instalacja biblioteki PyGraphviz:
-sudo apt-get install -y python-pygraphviz
+pygame install
+sudo apt-get install python-pygame
 '''
 
 from Graph import Graph
+from Draw import draw
 import sys
+
 
 
 vertices = int(sys.argv[1])
 if vertices < 2:
-	sys.exit("Ilość warstw >= 2!")
+	sys.exit("Min layers >= 2!")
 
 g = Graph(vertices)
 
@@ -28,4 +30,5 @@ for i in g.matrix:
 			counter+=1
 print(counter)
 
-g.draw()
+raw_input('Enter to draw a graph...')
+draw(g)

@@ -11,7 +11,7 @@ class Graph:
 		self.n_layers = n_layers
 		self.layers, self.vertices = self.makeLayers()
 		self.matrix = self.makeMatrix()
-	
+
 	#tworzy warstwy wraz z losowa liczba wierzcholkow
 	#zwraca (liste_warstw, ilosc_wierzcholkow)
 	def makeLayers(self):
@@ -41,7 +41,7 @@ class Graph:
 						rand_k = randint(self.layers[i+1][0], self.layers[i+1][-1])
 					linked_k.append(rand_k)	
 				matrix[j][rand_k] = 1
-		
+
 			#laczenie pozostalych wierzcholkow warstwy i+1
 			if len(linked_k) != len(self.layers[i+1]):
 				for k in self.layers[i+1]:
@@ -49,14 +49,14 @@ class Graph:
 						linked_k.append(k)
 						rand_j = randint(self.layers[i][0], self.layers[i][-1])
 						matrix[rand_j][k] = 1
-			
+
 
 		#laczenie zrodla i ujscia		
 		for i in self.layers[1]:
 			matrix[0][i] = 1
 		for i in self.layers[-2]:
 			matrix[i][-1] = 1
-			
+
 		#dodawanie 2*N losowych krawedzi
 		for i in range(self.n_layers*2):
 			v1, v2 = None, None
@@ -72,7 +72,7 @@ class Graph:
 				else:
 					continue
 				break
-				
+
 		#dodawanie przepustowosci
 		for i in range(self.vertices):
 			for j in range(self.vertices):
@@ -80,17 +80,4 @@ class Graph:
 					matrix[i][j]=randint(1, 9)
 					
 		return matrix
-		
-		
-	#rysowanie grafu - do poprawki, dodanie wag krawędzi
-	def draw(self):
-		g = nx.AGraph(strict=False, directed=True)
-		for i in range(self.vertices):
-			for j in range(self.vertices):
-				if self.matrix[i][j] != 0:
-					c = 'black' if i<j else 'red'	
-					g.add_edge(i, j, self.matrix[i][j], color=c)
-			
-		#prog=[‘neato’|’dot’|’twopi’|’circo’|’fdp’|’nop’]			
-		g.draw('Graph.png',prog='dot')
 
