@@ -7,6 +7,7 @@ sudo apt-get install python-pygame
 
 from Graph import Graph
 from Draw import draw
+from MaxFlow import MaxFlow
 import sys
 
 
@@ -29,6 +30,9 @@ for i in g.matrix:
 		if j>0:
 			counter+=1
 print(counter)
+
+maxFlow = MaxFlow(g)
+print(maxFlow.max_flow())
 
 raw_input('Enter to draw a graph...')
 draw(g)
