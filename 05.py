@@ -35,6 +35,9 @@ print(counter)
 maxFlow = MaxFlow(g)
 print(maxFlow.max_flow())
 
+for i in maxFlow.flowMatrix:
+	print(i)
+
 bipartite = Bipartite() 
 bipartiteMaxFlow = MaxFlow(bipartite)
 print(bipartiteMaxFlow.max_flow())
@@ -45,5 +48,5 @@ bipartiteMaxFlow.show()
 
 
 raw_input('Enter to draw a graph...')
-#draw(g, maxFlow)
-draw(bipartite, bipartiteMaxFlow)
+draw(g, maxFlow)
+#draw(bipartite, bipartiteMaxFlow)

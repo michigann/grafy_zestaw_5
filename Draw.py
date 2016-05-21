@@ -5,6 +5,7 @@ import sys, pygame
 import pygame.gfxdraw
 from random import randint
 from Graph import Graph
+from Bipartite import Bipartite
 
 
 def index_2d(my_list, v):
@@ -13,10 +14,10 @@ def index_2d(my_list, v):
         if v in x:
             return i, x.index(v)
 
-def init_coordinates(width, height, n_layers, layers):
+def init_coordinates(width, height, n_layers, layers, v_in_layer):
     # inicjalizacja współrzędnych kolejnych wierzchołków
     r = 30
-    step = (width)/(n_layers+1), height/n_layers+20
+    step = (width)/(v_in_layer+1), height/v_in_layer+20
     coords = []
     coords.append([(20, height/2)])
     for i in range(1, n_layers+1):
@@ -42,9 +43,9 @@ def draw_flow(screen, text, k, l, flag=True):
     v = (l[0] - k[0]) / 2, (l[1] - k[1]) / 2
     k = [k[0] + v[0], k[1] + v[1]]
     if flag:
-        k[1]-=20
+        k[1]-=10
     else:
-        k[1]+=20
+        k[1]+=10
     screen.blit(text, k)
 
 
@@ -53,6 +54,9 @@ def draw(g, maxFlow):
     # g - obiekt Graph
 
     n_layers = g.n_layers
+    v_in_layer = n_layers
+    if isinstance(g, Bipartite):
+    	v_in_layer = (g.vertices-2)/2
     layers = g.layers
     matrix = g.matrix
     vertices = g.vertices
@@ -67,7 +71,8 @@ def draw(g, maxFlow):
     screen = pygame.display.set_mode(size)
     screen.fill(white)
 
-    coords = init_coordinates(width, height, n_layers, layers)
+	
+    coords = init_coordinates(width, height, n_layers, layers, v_in_layer)
 
     font = pygame.font.SysFont("Arial", 12)
 
@@ -81,10 +86,10 @@ def draw(g, maxFlow):
                 k, l = index_2d(layers, i), index_2d(layers, j)
                 k, l = coords[k[0]][k[1]], coords[l[0]][l[1]]
                 if matrix[i][j] != 0 and matrix[j][i] != 0:
-                    k, l = (k[0] + radius/2, k[1] + radius/2), (l[0] + radius / 2, l[1] + radius / 2)
+                    k, l = (k[0] - radius/2, k[1] - radius/2), (l[0] - radius / 2, l[1] - radius / 2)
                     draw_line(screen, color, k, l)
                     draw_flow(screen, font.render(str(matrix[i][j]) + "/" + str(flowMatrix[i][j]), True, black), k, l)
-                    k, l = (k[0] - radius, k[1] - radius), (l[0] - radius, l[1] - radius)
+                    k, l = (k[0] + radius, k[1] + radius), (l[0] + radius, l[1] + radius)
                     draw_line(screen, red, l, k)
                     draw_flow(screen, font.render(str(matrix[j][i]) + "/" + str(flowMatrix[j][i]), True, black), k, l, False)
                     continue
