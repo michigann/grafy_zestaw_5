@@ -7,6 +7,7 @@ sudo apt-get install python-pygame
 
 from Graph import Graph
 from Draw import draw
+from Bipartite import Bipartite
 from MaxFlow import MaxFlow
 import sys
 
@@ -34,5 +35,15 @@ print(counter)
 maxFlow = MaxFlow(g)
 print(maxFlow.max_flow())
 
+bipartite = Bipartite() 
+bipartiteMaxFlow = MaxFlow(bipartite)
+print(bipartiteMaxFlow.max_flow())
+bipartite.show()
+print('''
+''')
+bipartiteMaxFlow.show()
+
+
 raw_input('Enter to draw a graph...')
-draw(g)
+#draw(g, maxFlow)
+draw(bipartite, bipartiteMaxFlow)

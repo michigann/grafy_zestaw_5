@@ -48,7 +48,7 @@ def draw_flow(screen, text, k, l, flag=True):
     screen.blit(text, k)
 
 
-def draw(g):
+def draw(g, maxFlow):
     # rysowanie grafu z przeplywami
     # g - obiekt Graph
 
@@ -56,6 +56,8 @@ def draw(g):
     layers = g.layers
     matrix = g.matrix
     vertices = g.vertices
+
+    flowMatrix = maxFlow.flowMatrix
 
     size = width, height = 1024, 768
     black, white, red, green, blue = (0,0,0), (255,255,255), (255,0,0), (0,255,0), (0,0,255)
@@ -81,10 +83,10 @@ def draw(g):
                 if matrix[i][j] != 0 and matrix[j][i] != 0:
                     k, l = (k[0] + radius/2, k[1] + radius/2), (l[0] + radius / 2, l[1] + radius / 2)
                     draw_line(screen, color, k, l)
-                    draw_flow(screen, font.render(str(matrix[i][j]) + "/0", True, black), k, l)
+                    draw_flow(screen, font.render(str(matrix[i][j]) + "/" + str(flowMatrix[i][j]), True, black), k, l)
                     k, l = (k[0] - radius, k[1] - radius), (l[0] - radius, l[1] - radius)
                     draw_line(screen, red, l, k)
-                    draw_flow(screen, font.render(str(matrix[j][i]) + "/0", True, black), k, l, False)
+                    draw_flow(screen, font.render(str(matrix[j][i]) + "/" + str(flowMatrix[j][i]), True, black), k, l, False)
                     continue
                 elif matrix[j][i] != 0:
                 	x, y = y, x
@@ -92,12 +94,20 @@ def draw(g):
                 	color = red
 
                 draw_line(screen, color, k, l)
-                draw_flow(screen, font.render(str(matrix[x][y])+"/0", True, black), k, l)
+                draw_flow(screen, font.render(str(matrix[x][y]) + "/" + str(flowMatrix[x][y]), True, black), k, l)
 
-
+    v_counter = 0
+    font = pygame.font.SysFont("Arial", 18, bold=True)
     for i in coords:
         for j in i:
             pygame.draw.circle(screen, black, j, radius)
+            text = font.render(str(v_counter), True, white)
+            if v_counter < 10:
+                pos = j[0]-radius/2+2, j[1]-radius+4
+            else:
+                pos = j[0] - radius+4, j[1]-radius+4
+            screen.blit(text, pos)
+            v_counter+=1
 
     while True:
         for event in pygame.event.get():
