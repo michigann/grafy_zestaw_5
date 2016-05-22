@@ -19,34 +19,39 @@ if vertices < 2:
 
 g = Graph(vertices)
 
+print("Podział grafu na poszczególne warstwy:")
 for i in g.layers:
 	print(i)
 	
 	
 counter = 0
 #print(g.vertices)
+
+print("\nMacierz sąsiedztwa:")
 for i in g.matrix:
 	print(i)
 	for j in i:
 		if j>0:
 			counter+=1
-print(counter)
+#print(counter)
 
 maxFlow = MaxFlow(g)
-print(maxFlow.max_flow())
-
+print("\nMaksymalny przepływ = "+str(maxFlow.max_flow()))
+print("\nMacierz przepływów:")
 for i in maxFlow.flowMatrix:
 	print(i)
 
 bipartite = Bipartite() 
 bipartiteMaxFlow = MaxFlow(bipartite)
-print(bipartiteMaxFlow.max_flow())
+
+print("\nGraf dwudzielny:")
 bipartite.show()
-print('''
-''')
+
+print("\nMaksymalny przepływ na grafie dwudzielnym = "+str(bipartiteMaxFlow.max_flow()))
+print("\nMacierz przepływów na grafie dwudzielnym:")
 bipartiteMaxFlow.show()
 
 
 raw_input('Enter to draw a graph...')
-draw(g, maxFlow)
-#draw(bipartite, bipartiteMaxFlow)
+#draw(g, maxFlow)
+draw(bipartite, bipartiteMaxFlow)

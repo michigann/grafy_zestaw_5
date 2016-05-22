@@ -17,7 +17,7 @@ class Bipartite(Graph):
 		layers = []
 		layers.append([0])
 		next = 1
-		num = randint(2,3)
+		num = randint(2,5)
 		if num%2==1:
 			num+=1
 		for i in range(2):
