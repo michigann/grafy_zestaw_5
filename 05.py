@@ -19,7 +19,7 @@ if vertices < 2:
 
 g = Graph(vertices)
 
-print("Podział grafu na poszczególne warstwy:")
+print("\nPodział grafu na poszczególne warstwy:")
 for i in g.layers:
 	print(i)
 	
@@ -40,6 +40,8 @@ print("\nMaksymalny przepływ = "+str(maxFlow.max_flow()))
 print("\nMacierz przepływów:")
 for i in maxFlow.flowMatrix:
 	print(i)
+	
+draw(g, maxFlow)
 
 bipartite = Bipartite() 
 bipartiteMaxFlow = MaxFlow(bipartite)
@@ -51,7 +53,4 @@ print("\nMaksymalny przepływ na grafie dwudzielnym = "+str(bipartiteMaxFlow.max
 print("\nMacierz przepływów na grafie dwudzielnym:")
 bipartiteMaxFlow.show()
 
-
-raw_input('Enter to draw a graph...')
-#draw(g, maxFlow)
 draw(bipartite, bipartiteMaxFlow)

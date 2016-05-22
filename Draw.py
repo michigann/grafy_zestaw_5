@@ -117,8 +117,9 @@ def draw(g, maxFlow):
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.display.quit()
-                pygame.quit()
-                sys.exit()
+            	return
+                #pygame.display.quit()
+                #pygame.quit()
+                #sys.exit()
         pygame.display.update()
         pygame.time.delay(100)
