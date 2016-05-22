@@ -18,8 +18,8 @@ class Bipartite(Graph):
 		layers.append([0])
 		next = 1
 		num = randint(2,5)
-		if num%2==1:
-			num+=1
+		#if num%2==1:
+		#	num+=1
 		for i in range(2):
 			tmp = []
 			for j in range(num):
@@ -39,7 +39,11 @@ class Bipartite(Graph):
 			#	rand_k = randint(self.layers[2][0], self.layers[2][-1])
 			linked_k.append(rand_k)
 			matrix[j][rand_k] = 1 
-
+		
+		for j in self.layers[2]:
+			if j not in linked_k:
+				tmp = randint(self.layers[1][0], self.layers[1][-1])
+				matrix[tmp][j] = 1  
 
 		#laczenie zrodla i ujscia		
 		for i in self.layers[1]:
@@ -48,7 +52,7 @@ class Bipartite(Graph):
 			matrix[i][-1] = 1
 
 		#dodawanie 2*N losowych krawedzi
-		for i in range(2):
+		for i in range(4):
 			v1, v2 = None, None
 			tmp=0
 			while tmp<200:
@@ -69,6 +73,11 @@ class Bipartite(Graph):
 		for i in self.matrix:
 			print(i)
 	
+	def showLinked(self):
+		for i in self.matrix:
+			for j in i:
+				if matrix[i][j]==1:
+					print(str(i)+" -> "+str(j))
 	
 	
 		
